@@ -23,9 +23,9 @@ void onMessage_rcv(SocketClient *socket, std::vector<std::string> messages){
  	
 }
 
-void onMessage_rcv2(SocketClient *socket, std::vector<std::string> messages){
+void onMessage_cts(SocketClient *socket, std::vector<std::string> messages){
 
-        forward("rcv2", messages, socket);
+        forward("cts", messages, socket);
 
 }
 
@@ -33,7 +33,7 @@ void onMessage_rcv2(SocketClient *socket, std::vector<std::string> messages){
 void onDisconnect(SocketClient *socket){
 	std::cout << "client disconnected !" << std::endl;
 	forward("rcv", {"Client disconnected"}, socket);
-	forward("rcv2", {"Client disconnected"}, socket);
+	forward("cts", {"Client disconnected"}, socket);
 	std::string *_uid = (std::string*) socket->getTag();
 	for(unsigned int i=0 ; i<clientsVector.size() ; i++){
 		std::string *uid = (std::string*) clientsVector[i]->getTag();
@@ -65,7 +65,7 @@ int main(){
 				std::string uid = getUid();
 				SocketClient *client = new SocketClient(sock);
 				client->addListener("rcv", onMessage_rcv);
-				client->addListener("rcv2", onMessage_rcv2);
+				client->addListener("cts", onMessage_cts);
 				client->setDisconnectListener(onDisconnect);
 				client->setTag(new std::string(uid), interface);
 				client->send("uid", uid);
