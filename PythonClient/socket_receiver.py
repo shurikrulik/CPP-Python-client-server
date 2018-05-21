@@ -34,7 +34,9 @@ while True:
                     msg = data
                     stage = 1
                     data = b''
-                    if key == expected_key:
+                    if key == expected_key and msg_size!=0:
                         print(base64.b64decode(msg))
+                elif data == b'' and stage == 4:
+                    stage = 1
 
 client.close()
