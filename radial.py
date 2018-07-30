@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 import csv
+from urllib.request import urlopen
+import codecs
 
 
 numberOfRays = 571
@@ -20,8 +22,10 @@ def update(i):
     print(i)
     return l,
 
-with open('/home/aleksandr/Documents/firstmeasurement1.csv', newline='') as File:
-    reader = csv.reader(File)
+# with open('/home/aleksandr/Documents/firstmeasurement1.csv', newline='') as File:
+#     reader = csv.reader(File)
+with urlopen('https://raw.githubusercontent.com/shurikrulik/cpp-python-client-server/master/firstmeasurement1.csv') as File:
+    reader = csv.reader(codecs.iterdecode(File, 'utf-8'))
     rows = list(reader)
 ani = animation.FuncAnimation(fig, update, frames=4015, interval=100, blit=True)
 plt.show()
