@@ -5,7 +5,7 @@ import csv
 from urllib.request import urlopen
 import codecs
 
-
+animation.embed_limit = 10000000000
 numberOfRays = 571
 fig = plt.figure(figsize=(9,9))
 ax = fig.add_subplot(111, projection='polar')
@@ -19,7 +19,6 @@ def update(i):
     global data
     row = rows[i:i+1]
     l.set_data(theta, row)
-    print(i)
     return l,
 
 # with open('/home/aleksandr/Documents/firstmeasurement1.csv', newline='') as File:
@@ -28,4 +27,5 @@ with urlopen('https://raw.githubusercontent.com/shurikrulik/cpp-python-client-se
     reader = csv.reader(codecs.iterdecode(File, 'utf-8'))
     rows = list(reader)
 ani = animation.FuncAnimation(fig, update, frames=4015, interval=100, blit=True)
+ani.save('/home/aleksandr/Videos/FirstRide2.mp4', fps=10, extra_args=['-vcodec', 'libx264'] , dpi=130)
 plt.show()
